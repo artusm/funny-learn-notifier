@@ -152,13 +152,14 @@ To change the schedule, edit the `triggers.crons` array in `wrangler.jsonc`. Exa
 
 ### Environment Variables
 
-| Variable             | Required | Description                                | Default    |
-| -------------------- | -------- | ------------------------------------------ | ---------- |
-| `IMAGE_API_PROVIDER` | No       | API provider: `"openai"` or `"openrouter"` | `"openai"` |
-| `OPENAI_API_KEY`     | Yes\*    | OpenAI API key                             | -          |
-| `OPENROUTER_API_KEY` | Yes\*    | OpenRouter API key                         | -          |
-| `TELEGRAM_BOT_TOKEN` | Yes      | Telegram bot token                         | -          |
-| `TELEGRAM_CHAT_ID`   | Yes      | Telegram chat ID                           | -          |
+| Variable             | Required | Description                                | Default      |
+| -------------------- | -------- | ------------------------------------------ | ------------ |
+| `IMAGE_API_PROVIDER` | No       | API provider: `"openai"` or `"openrouter"` | `"openai"`   |
+| `OPENAI_API_KEY`     | Yes\*    | OpenAI API key                             | -            |
+| `OPENROUTER_API_KEY` | Yes\*    | OpenRouter API key                         | -            |
+| `OPENROUTER_MODEL`   | No       | OpenRouter model (e.g., `"dall-e-3"`)      | `"dall-e-3"` |
+| `TELEGRAM_BOT_TOKEN` | Yes      | Telegram bot token                         | -            |
+| `TELEGRAM_CHAT_ID`   | Yes      | Telegram chat ID                           | -            |
 
 \*Required based on `IMAGE_API_PROVIDER` selection
 
@@ -175,6 +176,9 @@ To change the schedule, edit the `triggers.crons` array in `wrangler.jsonc`. Exa
 - Get API key: https://openrouter.ai/keys
 - Routes to DALL-E 3 via OpenRouter
 - May have different pricing
+- Model can be configured via `OPENROUTER_MODEL` environment variable
+- Default model: `"dall-e-3"`
+- Other models may be available (check OpenRouter documentation)
 
 ## How It Works
 

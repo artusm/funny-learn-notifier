@@ -17,6 +17,8 @@
     "OPENAI_API_KEY": "",
     // OpenRouter API key (if using OpenRouter)
     "OPENROUTER_API_KEY": "",
+    // OpenRouter model (if using OpenRouter, e.g., "dall-e-3", "openai/dall-e-3")
+    "OPENROUTER_MODEL": "dall-e-3",
     // Telegram bot token
     "TELEGRAM_BOT_TOKEN": "",
     // Telegram chat ID to send messages to

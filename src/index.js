@@ -42,9 +42,10 @@ async function generateImageWithOpenAI(prompt, apiKey) {
  * Generates an image using OpenRouter API
  * @param {string} prompt - The image generation prompt
  * @param {string} apiKey - OpenRouter API key
+ * @param {string} model - The model to use (default: "dall-e-3")
  * @returns {Promise<{imageUrl: string, revisedPrompt?: string}>}
  */
-async function generateImageWithOpenRouter(prompt, apiKey) {
+async function generateImageWithOpenRouter(prompt, apiKey, model = "dall-e-3") {
 	const response = await fetch("https://openrouter.ai/api/v1/images/generations", {
 		method: "POST",
 		headers: {
@@ -54,7 +55,7 @@ async function generateImageWithOpenRouter(prompt, apiKey) {
 			"X-Title": "Learn Notifier", // Optional: replace with your app name
 		},
 		body: JSON.stringify({
-			model: "dall-e-3",
+			model: model,
 			prompt: prompt,
 			n: 1,
 			size: "1024x1024",
@@ -183,7 +184,8 @@ async function handleMemeGeneration(env) {
 			if (!apiKey) {
 				throw new Error("OPENROUTER_API_KEY must be configured when using OpenRouter");
 			}
-			imageResult = await generateImageWithOpenRouter(prompt, apiKey);
+			const model = env.OPENROUTER_MODEL || "dall-e-3";
+			imageResult = await generateImageWithOpenRouter(prompt, apiKey, model);
 		} else {
 			// Default to OpenAI
 			const apiKey = env.OPENAI_API_KEY;
