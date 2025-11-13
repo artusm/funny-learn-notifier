@@ -246,6 +246,41 @@ export default {
 	async fetch(request, env, ctx) {
 		// Handle manual trigger via HTTP request
 		if (request.method === "POST" || request.method === "GET") {
+			// Check if we're in dev mode
+			const isDev = env.ENVIRONMENT === "development" || env.NODE_ENV === "development";
+
+			// If not in dev, require password
+			if (!isDev) {
+				const providedPassword = new URL(request.url).searchParams.get("password");
+				const expectedPassword = env.MANUAL_TRIGGER_PASSWORD;
+
+				if (!expectedPassword) {
+					return new Response(
+						JSON.stringify({
+							success: false,
+							error: "Manual trigger password not configured",
+						}),
+						{
+							status: 500,
+							headers: { "Content-Type": "application/json" },
+						},
+					);
+				}
+
+				if (!providedPassword || providedPassword !== expectedPassword) {
+					return new Response(
+						JSON.stringify({
+							success: false,
+							error: "Unauthorized: Invalid password",
+						}),
+						{
+							status: 401,
+							headers: { "Content-Type": "application/json" },
+						},
+					);
+				}
+			}
+
 			return handleMemeGeneration(env);
 		}
 

@@ -63,12 +63,31 @@ Update `wrangler.jsonc`:
 
 ### 5. Get Telegram Chat ID
 
+#### For Personal Chats (Direct Messages):
+
 1. Start a chat with your bot
 2. Send a message to your bot
 3. Visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
-4. Look for the `chat.id` value in the response
+4. Look for the `chat.id` value in the response (positive number)
 
-Alternatively, message [@userinfobot](https://t.me/userinfobot) to get your chat ID.
+#### For Group Chats (Recommended):
+
+**Method 1 - Using @userinfobot (Easiest):**
+
+1. Add [@userinfobot](https://t.me/userinfobot) to your group
+2. Send any message in the group
+3. The bot will reply with the chat ID (usually a negative number like `-1001234567890`)
+
+**Method 2 - Using getUpdates API:**
+
+1. Add your bot to the group
+2. Send a message in the group (mention the bot or have it read messages)
+3. Visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
+4. Look for the `chat.id` value in the response
+   - Group chats have **negative IDs** (e.g., `-1001234567890`)
+   - Personal chats have **positive IDs** (e.g., `123456789`)
+
+**Note:** Make sure your bot has permission to read messages in the group for Method 2 to work.
 
 ## Development
 
@@ -152,16 +171,19 @@ To change the schedule, edit the `triggers.crons` array in `wrangler.jsonc`. Exa
 
 ### Environment Variables
 
-| Variable             | Required | Description                                | Default      |
-| -------------------- | -------- | ------------------------------------------ | ------------ |
-| `IMAGE_API_PROVIDER` | No       | API provider: `"openai"` or `"openrouter"` | `"openai"`   |
-| `OPENAI_API_KEY`     | Yes\*    | OpenAI API key                             | -            |
-| `OPENROUTER_API_KEY` | Yes\*    | OpenRouter API key                         | -            |
-| `OPENROUTER_MODEL`   | No       | OpenRouter model (e.g., `"dall-e-3"`)      | `"dall-e-3"` |
-| `TELEGRAM_BOT_TOKEN` | Yes      | Telegram bot token                         | -            |
-| `TELEGRAM_CHAT_ID`   | Yes      | Telegram chat ID                           | -            |
+| Variable                  | Required | Description                                    | Default        |
+| ------------------------- | -------- | ---------------------------------------------- | -------------- |
+| `IMAGE_API_PROVIDER`      | No       | API provider: `"openai"` or `"openrouter"`     | `"openai"`     |
+| `OPENAI_API_KEY`          | Yes\*    | OpenAI API key                                 | -              |
+| `OPENROUTER_API_KEY`      | Yes\*    | OpenRouter API key                             | -              |
+| `OPENROUTER_MODEL`        | No       | OpenRouter model (e.g., `"dall-e-3"`)          | `"dall-e-3"`   |
+| `TELEGRAM_BOT_TOKEN`      | Yes      | Telegram bot token                             | -              |
+| `TELEGRAM_CHAT_ID`        | Yes      | Telegram chat ID                               | -              |
+| `MANUAL_TRIGGER_PASSWORD` | Yes\*    | Password for manual HTTP trigger               | -              |
+| `ENVIRONMENT`             | No       | Environment: `"development"` or `"production"` | `"production"` |
 
-\*Required based on `IMAGE_API_PROVIDER` selection
+\*Required based on `IMAGE_API_PROVIDER` selection  
+\*\*Required in production mode to prevent abuse. Not needed in development mode.
 
 ### API Providers
 
@@ -192,8 +214,23 @@ To change the schedule, edit the `triggers.crons` array in `wrangler.jsonc`. Exa
 
 ### Manual Trigger
 
-- **GET** `/` - Trigger meme generation
-- **POST** `/` - Trigger meme generation
+- **GET** `/?password=YOUR_PASSWORD` - Trigger meme generation
+- **POST** `/?password=YOUR_PASSWORD` - Trigger meme generation
+
+**Security:**
+
+- In **development mode** (`ENVIRONMENT=development`): Password is not required
+- In **production mode** (default): Password is required via query parameter
+
+**Example:**
+
+```bash
+# Production (password required)
+curl "https://your-worker.workers.dev/?password=your_secure_password"
+
+# Development (no password needed)
+curl "http://localhost:8787"
+```
 
 Response format:
 
