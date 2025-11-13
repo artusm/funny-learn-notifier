@@ -1,0 +1,25 @@
+{
+  "name": "learn-notifier",
+  "main": "src/index.js",
+  "compatibility_date": "2025-09-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "minify": true,
+  "upload_source_maps": true,
+  "account_id": "YOUR_ACCOUNT_ID",
+  "triggers": {
+    "crons": ["0 9 * * *"]
+  },
+  "vars": {
+    // Image generation API provider: "openai" or "openrouter"
+    "IMAGE_API_PROVIDER": "openai",
+    // OpenAI API key (if using OpenAI)
+    "OPENAI_API_KEY": "",
+    // OpenRouter API key (if using OpenRouter)
+    "OPENROUTER_API_KEY": "",
+    // Telegram bot token
+    "TELEGRAM_BOT_TOKEN": "",
+    // Telegram chat ID to send messages to
+    "TELEGRAM_CHAT_ID": ""
+  }
+}

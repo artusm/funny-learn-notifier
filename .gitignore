@@ -1,0 +1,51 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+## Node / dependency folders
+node_modules/
+
+## Build / test output
+dist/
+coverage/
+.nyc_output/
+*.lcov
+
+## Environment files
+.env
+.env.test
+
+## Cloudflare Wrangler
+.wrangler/
+
+## Logs
+logs
+*.log
+
+## Editor / OS files
+.DS_Store
+.vscode/
+thumbs.db
+
+## Tool caches
+.cache/
+.rpt2_cache/
+
+## npm
+.npm
+.npmrc
+
+## Misc
+.node_repl_history
+
+## Distribution / packaging
+dist/

@@ -1,0 +1,26 @@
+{
+  "name": "learn-notifier",
+  "description": "A Cloudflare Workers project for sending notifications to Learn users",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "format": "biome format --write",
+    "lint": "biome check --write",
+    "test": "vitest run",
+    "precommit": "npm run lint && npm run format && npm run test",
+    "dev": "miniflare src/index.js --wrangler --env development",
+    "start": "miniflare src/index.js --wrangler",
+    "build": "npx wrangler deploy --dry-run --outdir dist"
+  },
+  "dependencies": {
+    "cookie": "^1.0.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
+    "miniflare": "^4.20250917.0",
+    "vitest": "^3.2.4",
+    "vitest-environment-miniflare": "^2.14.4"
+  }
+}
