@@ -8,7 +8,8 @@
   "upload_source_maps": true,
   "account_id": "YOUR_ACCOUNT_ID",
   "triggers": {
-    "crons": ["0 9 * * *"]
+    // Runs at 09:00 and 18:00 Almaty time (UTC+6) = 03:00 and 12:00 UTC
+    "crons": ["0 3 * * *", "0 12 * * *"]
   },
   "vars": {
     // Image generation API provider: "openai" or "openrouter"
