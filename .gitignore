@@ -49,3 +49,16 @@ thumbs.db
 
 ## Distribution / packaging
 dist/
+
+## Yarn 4
+# PnP files (not needed for node_modules mode)
+.pnp.cjs
+.pnp.loader.mjs
+
+# Yarn cache and install state
+.yarn/cache
+.yarn/install-state.gz
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/*.cjs
+.yarn/*.js
